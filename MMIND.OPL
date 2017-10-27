@@ -1,0 +1,85 @@
+MMIND:
+LOCAL N$(4),T$(4)
+LOCAL A$(1),B$(1)
+LOCAL O%,P%,I%,Y%
+LOCAL S$(1),W$(1),V$(1),U$(1)
+LOCAL C%
+PRINT "   MasterMind"
+PRINT " (c)2010 Logout"
+GET
+POKEB $180,64+(0 AND 7)*8
+POKEB $181,0
+POKEB $181,0
+POKEB $181,0
+POKEB $181,1
+POKEB $181,2
+POKEB $181,20
+POKEB $181,8
+POKEB $181,0
+POKEB $180,64+(1 AND 7)*8
+POKEB $181,0
+POKEB $181,0
+POKEB $181,4
+POKEB $181,6
+POKEB $181,31
+POKEB $181,6
+POKEB $181,4
+POKEB $181,0
+RANDOMIZE MINUTE*SECOND
+DO
+ CLS
+ PRINT "Make your guess:";
+ S$=NUM$(INT(RND*9),1)
+ DO
+  W$=NUM$(INT(RND*9),1)
+ UNTIL W$<>S$
+ DO
+  U$=NUM$(INT(RND*9),1)
+ UNTIL U$<>S$ AND U$<>W$
+ DO
+  V$=NUM$(INT(RND*9),1)
+ UNTIL V$<>S$ AND V$<>W$ AND V$<>U$
+ N$=S$+W$+U$+V$
+ I%=1:Y%=1:C%=1
+ DO
+  O%=0:P%=0
+  S$=GET$
+  PRINT S$;
+  DO
+   W$=GET$
+  UNTIL W$<>S$
+  PRINT W$;
+  DO
+   U$=GET$
+  UNTIL U$<>W$ AND U$<>S$
+  PRINT U$;
+  DO
+   V$=GET$
+  UNTIL V$<>U$ AND V$<>T$ AND V$<>S$
+  PRINT V$,
+  PRINT REPT$(" ",3-LEN(NUM$(C%,3)));
+  PRINT NUM$(C%,3),"",
+  T$=S$+W$+U$+V$
+  WHILE I%<5 
+   A$=MID$(N$,I%,1)
+   WHILE Y%<5
+    B$=MID$(T$,Y%,1)
+    IF (A$=B$ AND I%=Y%)
+     O%=O%+1
+    ELSEIF (A$=B$)
+     P%=P%+1
+    ENDIF
+    Y%=Y%+1
+   ENDWH
+   Y%=1:I%=I%+1
+  ENDWH
+  I%=1
+  PRINT CHR$(0);O%,
+  PRINT CHR$(1);P%
+  C%=C%+1
+ UNTIL O%=4 OR T$="ABCD"
+ PRINT "End of Game."
+ GET
+ CLS
+ PRINT "Again";CHR$(63)
+UNTIL UPPER$(GET$)<>"Y"

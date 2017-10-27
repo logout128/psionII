@@ -1,0 +1,24 @@
+ZXVRAM:
+LOCAL X%, Y%, I%
+LOCAL P%, B%, A%
+PRINT "X:";
+INPUT X%
+PRINT "Y:";
+INPUT Y%
+CLS
+PRINT "X: ";X%,"Y: ";Y%
+P%=22496
+P%=P%-(Y%/64)*2048
+P%=P%-(Y% AND 7)*256
+P%=P%-(Y% AND 63)/8*32
+P%=P%+(X%/8)
+B%=1
+I%=0
+WHILE I%<(7-(X% AND 7))
+ B%=2*B%
+ I%=I%+1
+EHDWH
+A%=23264
+A%=A%-Y%/8*32+X%/8
+PRINT P%;",";B%;",";A%;
+GET$
