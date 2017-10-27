@@ -8,11 +8,12 @@ Well known number guessing game. Player tries to find out a number (four digits 
 ZX VRAM calculator (ZXVRAM.OPL)
 -------------------------------
 After entering X and Y coordinates (X: 0-255, Y: 0-191, origin in lower-left corner) on ZX Spectrum screen the app calculates and displays three numbers:
-* P%: Address in pixel VRAM where the pixel defined by coordinates is stored
-* B%: Value of the byte in pixel VRAM to set the specified pixel
-* A%: Address in attribute VRAM on which colour of specified pixel is stored
+* P: Address in pixel VRAM where the pixel defined by coordinates is stored
+* B: Value of the byte in pixel VRAM to set the specified pixel
+* A: Address in attribute VRAM on which colour of specified pixel is stored
 
 So the result can be used in ZX Spectrum basic as:
 
-    POKE P%, B%     
-    POKE A%, colour
+    10 LET B=B+PEEK(P)
+    20 POKE P, B     
+    30 POKE A, colour
